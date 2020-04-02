@@ -11,8 +11,12 @@ typedef
     }
 Stack;
 
+
+
+
 Stack * newStack();
 int pushC(Stack *s,char car);
+int pushD(Stack *s,double car);
 int push(Stack *s,Nodo *node);
 Nodo *pop(Stack *s);
 int empty(Stack *s);

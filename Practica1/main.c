@@ -34,8 +34,10 @@ int main(int argvc,char *argv[]){
     }
     char *cad = add_concat_str(argv[1]);
     printf("%s",cad);
-    printf("infix:\n%s\npost:\n%s\n",argv[2],conv_infix_sufix(argv[2]));
-    
+    char *post = conv_infix_sufix(argv[2]);
+    printf("infix:\n%s\npost:\n%s\n",argv[2],post);
+    double res = eval_sufix(post);
+    printf("\nResult: %f",res);
     return 0;
 }
 

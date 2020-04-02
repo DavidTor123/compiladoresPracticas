@@ -2,6 +2,6 @@
 #define EVALUADOR_H
 
 char *conv_infix_sufix(char *);
-double 
+double eval_sufix(char *);
 
 #endif

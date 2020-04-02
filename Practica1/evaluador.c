@@ -1,8 +1,9 @@
-
+       #include <stdlib.h>
 #include "stack.h"
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <math.h>
 
 
 int get_priority_in_stack(char op){
@@ -70,15 +71,13 @@ char *conv_infix_sufix(char *cad){
         car = cad[i];
         if( isalnum(car) ){ // operando 
             post[j++] = (char)car;
-        }else if( car == ')' ){ // ) 
+        }else if( car == ')' ){ // parentesis derecho
             topePil = pop(pilaOperadores)->car;
             do{
                 post[j++] = topePil;
                 topePil = pop(pilaOperadores)->car;
             }while( topePil != '(' );
         }else { // operador
-
-        printf("%c\n",car);
             short terminar = 0;
             while(terminar != 1){
                 if(empty(pilaOperadores)){
@@ -110,4 +109,45 @@ char *conv_infix_sufix(char *cad){
 
 
     return post;
+}
+double do_operation(double operan1,double operan2,char op){
+    double res;
+    switch (op)
+    {
+    case '+':
+        res = operan1 + operan2;
+        break;
+    case '-':
+        res = operan1 - operan2;
+        break;
+    case '/':
+        res = operan1 / operan2;
+        break;
+    case '*':
+        res = operan1 * operan2;
+        break;
+    case '^':
+        res =  pow(operan1,operan2);
+        break;
+    }
+    return res;
+}
+
+double eval_sufix(char *post){
+    int tam = strlen(post);
+    char car;double x,y;
+    Stack *s = newStack();
+    for (size_t i = 0; i < tam; i++)
+    {
+        car = post[i];
+        if(isalnum(car)){
+            pushD(s,car-'0');
+        }else{
+            x =  pop(s)->numF; 
+            y = pop(s)->numF;
+            x = do_operation(y,x,car);
+            pushD(s,x);
+        }
+    }
+    return pop(s)->numF;
 }

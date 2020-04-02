@@ -27,6 +27,21 @@ int pushC(Stack *s,char car){
     node->car = car;
     return push(s,node);
 }
+int pushD(Stack *s,double numF){
+    if (s == NULL)
+    {
+        printf("La pila es NULL");
+        return -1;
+    }
+    Nodo *node = (Nodo *)malloc(sizeof(Nodo));
+    if (node == NULL)
+    {
+        perror("Error creando el nuevo node\n");
+        exit(0);
+    }
+    node->numF = numF;
+    return push(s,node);
+}
 int push(Stack *s,Nodo *node){
     if (s == NULL)
     {
