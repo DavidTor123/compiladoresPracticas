@@ -6,6 +6,7 @@
 #include "stack.h"
 int add_concat(char a,char b){
     return (( isalpha(a) && isalpha(b) ) || 
+            (( a=='*' || a=='+' ) && b == '(' ) ||
             ( ( a=='*' || a=='+' ) && isalpha(b) ) || 
             ( a==')' && b=='(' ));
 }
@@ -29,15 +30,17 @@ char *add_concat_str(char *er){
 
 
 int main(int argvc,char *argv[]){
-    if(1){
-        printf("si\n");
-    }
     char *cad = add_concat_str(argv[1]);
     printf("%s",cad);
+    /*
     char *post = conv_infix_sufix(argv[2]);
     printf("infix:\n%s\npost:\n%s\n",argv[2],post);
     double res = eval_sufix(post);
     printf("\nResult: %f",res);
+    */
+    char *post = conv_infix_sufix(cad);
+    printf("\ninfix:\n%s\npost:\n%s\n",cad,post);
+
     return 0;
 }
 

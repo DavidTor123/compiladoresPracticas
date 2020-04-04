@@ -9,10 +9,10 @@
 int get_priority_in_stack(char op){
     int x; switch (op)
     {
-    case '^':
+    case '.':
         x = 3;
         break;
-    case '*':
+    case '|':
         x = 2;
         break;
     case '/':
@@ -36,10 +36,10 @@ int get_priority_in_stack(char op){
 int get_priority_out_stack(char op){
     int x; switch (op)
     {
-    case '^':
+    case '.':
         x = 4;
         break;
-    case '*':
+    case '|':
         x = 2;
         break;
     case '/':
@@ -69,7 +69,7 @@ char *conv_infix_sufix(char *cad){
     for (j = i = 0; i < tam; i++)
     {
         car = cad[i];
-        if( isalnum(car) ){ // operando 
+        if( isalpha(car) ){ // operando 
             post[j++] = (char)car;
         }else if( car == ')' ){ // parentesis derecho
             topePil = pop(pilaOperadores)->car;
@@ -77,7 +77,11 @@ char *conv_infix_sufix(char *cad){
                 post[j++] = topePil;
                 topePil = pop(pilaOperadores)->car;
             }while( topePil != '(' );
-        }else { // operador
+        }else if( car == '|' ||  car == '.' || car == '(' ) { // operador en infija
+            if(car == '('){
+                pushC(pilaOperadores,car);
+                continue;
+            }
             short terminar = 0;
             while(terminar != 1){
                 if(empty(pilaOperadores)){
@@ -97,8 +101,8 @@ char *conv_infix_sufix(char *cad){
                     }
                 }
             }
-
-
+        }else{
+            post[j++] = (char)car;
         }
     }
     while ( !empty(pilaOperadores) )
